@@ -1,6 +1,7 @@
 # Off-Peak Hours
 
 [![CI](https://github.com/Shadid516/dsh-off-peak-hours/actions/workflows/ci.yml/badge.svg)](https://github.com/Shadid516/dsh-off-peak-hours/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/dsh-off-peak-hours.svg)](https://www.npmjs.com/package/dsh-off-peak-hours)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![topic: dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-4D6BFE)](https://github.com/topics/dsh-plugin)
 [![tests: 97 passing](https://img.shields.io/badge/tests-97_passing-brightgreen.svg)](#developing)
@@ -28,19 +29,21 @@ does.
 
 ## Install
 
-From a DSH session, the shortest path:
-
-```
-plugin_manager install_bundle github:Shadid516/dsh-off-peak-hours
-```
-
-Or from a shell, with `dsh` on the `PATH`. A package that declares
-`dsh.bundle` is added to the profile's bundle layers as soon as it is
-installed, so one command enables it:
+Published on npm as
+[`dsh-off-peak-hours`](https://www.npmjs.com/package/dsh-off-peak-hours). From a
+shell with `dsh` on the `PATH` — a package that declares `dsh.bundle` is added
+to the profile's bundle layers as soon as it is installed, so one command
+enables it:
 
 ```sh
-dsh plugin --profile web add github:Shadid516/dsh-off-peak-hours   # from git
 dsh plugin --profile web add dsh-off-peak-hours                    # from npm
+dsh plugin --profile web add github:Shadid516/dsh-off-peak-hours   # latest main
+```
+
+From a DSH session:
+
+```
+plugin_manager install_bundle dsh-off-peak-hours
 ```
 
 From a checkout, point `install_bundle` at the absolute directory:
