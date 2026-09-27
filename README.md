@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/dsh-off-peak-hours.svg)](https://www.npmjs.com/package/dsh-off-peak-hours)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![topic: dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-4D6BFE)](https://github.com/topics/dsh-plugin)
-[![tests: 97 passing](https://img.shields.io/badge/tests-97_passing-brightgreen.svg)](#developing)
+[![tests: 98 passing](https://img.shields.io/badge/tests-98_passing-brightgreen.svg)](#developing)
 [![node: >=22](https://img.shields.io/badge/node-%3E%3D22-339933)](package.json)
 
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`)
@@ -194,7 +194,7 @@ every zone these plans are written in is UTC+8 with no daylight saving.
 | `client.js` | The whole feature: plans, holiday table, provider resolution, pill, panel. |
 | `locale/en.json`, `locale/zh.json` | Plugin-card title and description. |
 | `icon.svg` | Plugin-card artwork. |
-| `test/schedule.test.mjs` | 97 tests over the shipped client module. |
+| `test/schedule.test.mjs` | 98 tests over the shipped client module. |
 | `scripts/check-manifest.mjs` | Validates the install and discovery contract. |
 
 ## Updating the holiday calendar

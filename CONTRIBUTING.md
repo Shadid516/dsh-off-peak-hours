@@ -9,7 +9,7 @@ file, and the schedule data is the part that ages.
 git clone https://github.com/Shadid516/dsh-off-peak-hours.git
 cd dsh-off-peak-hours
 npm ci
-npm run check     # manifest contract + 97 tests
+npm run check     # manifest contract + 98 tests
 ```
 
 `npm test` runs the suite alone. Node 22 or newer is required.

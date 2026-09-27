@@ -1172,3 +1172,77 @@ test('without a locale service the entry still registers, unlocalized', () => {
   assert.equal(entry.options.locale, undefined);
   assert.equal(entry.options.id, 'off-peak-hours');
 });
+
+// ---------------------------------------------------------------------------
+// Untrusted provider names
+// ---------------------------------------------------------------------------
+//
+// The provider string is the only value the pill renders that comes from
+// outside this module: it is whatever the model directory or the Session's
+// projection reports. It reaches the panel as a plain text child, and
+// SECURITY.md names a crafted provider name as a risk the suite covers — so it
+// is covered here rather than assumed. These payloads all begin with
+// `deepseek-`, which is what makes them match a plan: a payload that no plan
+// claimed would render nothing and pass vacuously, so each case asserts the
+// pill rendered first.
+
+/** Every element `type` in a rendered tree, for asserting nothing was injected. */
+function elementTypesIn(element, found = []) {
+  if (element === null || element === undefined) return found;
+  if (Array.isArray(element)) {
+    for (const child of element) elementTypesIn(child, found);
+    return found;
+  }
+  if (typeof element !== 'object') return found;
+  found.push(element.type);
+  elementTypesIn(element.children ?? [], found);
+  return found;
+}
+
+/** The element types a markup injection would have to create to do anything. */
+const MARKUP_ELEMENTS = ['img', 'script', 'svg', 'iframe', 'object', 'embed', 'a', 'link', 'meta'];
+
+test('a provider name carrying markup stays text', () => {
+  const payloads = [
+    'deepseek-<img src=x onerror=alert(1)>',
+    'deepseek-"><script>alert(1)</script>',
+    'deepseek-<svg/onload=alert(1)>',
+    'deepseek-</dd><a href="https://evil.example">x</a>',
+  ];
+
+  for (const crafted of payloads) {
+    const entry = loadEntry({ models: directoryModels(crafted) });
+    const props = { useProjection: () => undefined };
+
+    // `pillOf` asserts the entry rendered at all, so a payload silently
+    // rejected by `matches` cannot pass this test by rendering nothing.
+    const tree = entry.render(utc('2026-09-28T02:00:00Z'), props);
+    pillOf(tree);
+
+    const panel = panelOf(entry.open(utc('2026-09-28T02:00:00Z'), props));
+    const list = panel.children.find((child) => child && child.type === 'dl');
+    assert.ok(list, 'the details list rendered');
+
+    const pairs = [];
+    for (let index = 0; index + 1 < list.children.length; index += 2) {
+      pairs.push([list.children[index], list.children[index + 1]]);
+    }
+    const providerRow = pairs.find(([label]) => textOf(label) === 'Provider');
+    assert.ok(providerRow, 'the provider row rendered');
+
+    // The value is one string child — what React escapes at commit — rather
+    // than a nested element, or a props object carrying the payload.
+    assert.equal(providerRow[1].children.length, 1, `one child for ${crafted}`);
+    assert.equal(typeof providerRow[1].children[0], 'string', `a string child for ${crafted}`);
+    assert.equal(providerRow[1].children[0], crafted, `the payload survives verbatim as text: ${crafted}`);
+
+    // And nothing anywhere in the rendered tree became a markup element.
+    for (const type of [...elementTypesIn(panel), ...elementTypesIn(tree)]) {
+      assert.ok(
+        !MARKUP_ELEMENTS.includes(type),
+        `a <${String(type)}> element was created from the provider name ${crafted}`,
+      );
+    }
+  }
+});
+

@@ -26,7 +26,10 @@ Worth knowing when judging a report, because the answer is "very little":
 
 The realistic risk surface is therefore the rendering and dismissal path: a
 crafted provider name, or a clock near a window boundary. Both are covered by
-the test suite, and a report showing either misbehaving is in scope.
+the test suite — `a provider name carrying markup stays text` asserts that a
+provider containing markup reaches the DOM as one escaped text child and
+creates no element, and the schedule tests probe the instant before and at each
+window edge. A report showing either misbehaving is in scope.
 
 ## Scope
 

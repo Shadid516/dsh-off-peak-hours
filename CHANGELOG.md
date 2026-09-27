@@ -8,6 +8,27 @@ The schedule data is versioned with the code: a change to a peak window, the
 holiday table, or a campaign window is a behavioral change and gets an entry
 here even when no code changed.
 
+## [Unreleased]
+
+Changes to the repository that do not alter the published package — `files`
+excludes the test suite, the security policy, and the workflow, so none of
+these require a republish.
+
+### Added
+
+- A regression test for the risk `SECURITY.md` names: a provider name carrying
+  markup (`<img onerror>`, `</dd><a href>`, `<svg onload>`) is asserted to reach
+  the panel as a single escaped text child and to create no element. The suite
+  is 98 tests. The claim was previously unbacked — this closes it rather than
+  softening the wording.
+
+### Security
+
+- Pinned `actions/checkout` and `actions/setup-node` by commit SHA instead of
+  the mutable `v7` tag, and disabled persisted checkout credentials in CI.
+- Enabled Dependabot alerts and automated security fixes on the repository;
+  the existing config covered version updates only.
+
 ## [1.0.0] - 2026-09-27
 
 First public release.
