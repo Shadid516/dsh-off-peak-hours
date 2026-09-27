@@ -1,0 +1,82 @@
+{
+  "name": "dsh-off-peak-hours",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "DeepSeek Harness pill that shows whether the selected DeepSeek or z.ai billing plan is in a peak or off-peak (half-price) window right now, with a click-to-open schedule panel.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "dsh-bundle",
+    "deepseek-harness",
+    "deepseek-harness-plugin",
+    "deepseek",
+    "off-peak",
+    "peak",
+    "peak-hours",
+    "pricing",
+    "zai",
+    "glm",
+    "cordis",
+    "cordis-plugin",
+    "web-ui"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Shadid516",
+    "url": "https://github.com/Shadid516"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shadid516/dsh-off-peak-hours.git"
+  },
+  "homepage": "https://github.com/Shadid516/dsh-off-peak-hours#readme",
+  "bugs": {
+    "url": "https://github.com/Shadid516/dsh-off-peak-hours/issues"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "icon": "./icon.svg",
+  "meta": {
+    "title": "Off-Peak Hours",
+    "description": "Shows whether the selected DeepSeek or z.ai plan is in a peak or off-peak pricing window."
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "icon.svg",
+    "locale/*.json",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test test/schedule.test.mjs",
+    "check:manifest": "node scripts/check-manifest.mjs",
+    "check": "npm run check:manifest && npm test"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-model-selection"
+      ]
+    }
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
+  }
+}

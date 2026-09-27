@@ -1,0 +1,12 @@
+# Dependencies installed by `npm ci` for the manifest check and the test run.
+node_modules/
+
+# Local scratch: the install path a reviewer points DSH at is their own.
+*.log
+npm-debug.log*
+
+# Editors and OSes.
+.DS_Store
+.idea/
+.vscode/
+*.swp

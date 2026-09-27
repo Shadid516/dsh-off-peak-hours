@@ -1,0 +1,18 @@
+version: 2
+updates:
+  # The workflow's own action pins.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: ci
+
+  # One dev dependency; kept fresh so the manifest check keeps parsing YAML
+  # the way the registry does.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: deps

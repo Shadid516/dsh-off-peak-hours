@@ -1,0 +1,6 @@
+# Bundle patch: one Host row for the pair. The browser half travels through
+# package.json `exports["./client"]` + `dsh.client`, so this row only has to
+# exist for the Loader to know the package.
+- insert:
+    - id: off-peak-hours
+      name: 'dsh-off-peak-hours'
