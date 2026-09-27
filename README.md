@@ -11,11 +11,11 @@ bundle that puts one ambient pill under the composer while the Session's model
 comes from a provider with a time-of-day price. The pill answers a single
 question at a glance: **is the next token billed at peak or off-peak rates?**
 
-![The pill with its panel open, showing DeepSeek off-peak with the National Day holiday note](docs/preview.svg)
+![The Off-Peak Hours pill beside the shipped stats pill, with its panel open above them](https://raw.githubusercontent.com/Shadid516/dsh-off-peak-hours/main/docs/preview.png)
 
-<sub>A rendering of the pill and the panel it opens, not a screenshot of a live
-session. The values come from an actual `describe()` evaluation, but the fonts
-and colours are the README's approximation of the theme tokens.</sub>
+<sub>A live session on a Sunday evening. The weekend is off-peak, so the panel
+names the change that ends it: Monday's 01:00 UTC window opening, 2h 9m away.
+The pill sits beside the shipped stats pill — the one reading `13%`.</sub>
 
 ```
 ● Off-peak · 50% off · starts in 6h 40m
@@ -74,25 +74,30 @@ Clicking the pill opens a panel with the same chrome as the shipped stat
 dialogs:
 
 ```
-DeepSeek                              Off-peak (50% off)
-────────────────────────────────────────────────────────────
-Peak begins in 6d 23h, at Thu 2026-10-08 01:00 UTC
-Holiday            National Day - off-peak all day
+DeepSeek                               Off-peak (50% off)
+──────────────────────────────────────────────────────────────
+Peak begins in 2h 9m, at Mon 01:00 UTC
 Peak hours         01:00-04:00 and 06:00-10:00 UTC, Mon-Fri, excluding
                    Chinese public holidays.
-Time               Thu 02:00 UTC · Thu 10:00 UTC+8
+Time               Sun 22:50 UTC · Mon 06:50 UTC+8
 Holiday calendar   2025-2026
 Provider           deepseek-official
 ```
 
 - The header restates the pill's verdict in words.
 - The answer line names the state that *begins*, rather than leaving
-  "starts in 6d 23h" to be interpreted.
-- An exception that explains a long wait — a holiday or a campaign — is the
-  first row, above the rule it overrides.
-- A change less than a day away is stamped by weekday (`Mon 04:00 UTC`);
+  "starts in 2h 9m" to be interpreted.
+- A change less than a day away is stamped by weekday (`Mon 01:00 UTC`);
   further out it gains a date, because a weekday alone stops identifying the
   day.
+
+When a holiday or a campaign is in force, it leads the details list, above the
+schedule it overrides:
+
+```
+Holiday            National Day - off-peak all day
+Campaign           50% off all day, 2026-09-25 to 2026-10-07
+```
 
 It behaves like the shipped panels: portaled to `document.body`, anchored above
 the trigger and clamped into the viewport, dismissed by `Escape` or a
